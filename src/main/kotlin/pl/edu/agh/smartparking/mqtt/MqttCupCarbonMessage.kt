@@ -16,39 +16,31 @@ data class MqttCupCarbonMessage(
 ) {
     companion object {
 
-        fun parseMqttEvent(topic: String, message: String): MqttCupCarbonMessage? {
-            return try {
-                tryParse(topic, message)
-            } catch (e: Exception) {
-                null
-            }
-
+        fun parseMqttEvent(topic: String, message: String): MqttCupCarbonMessage? = try {
+            tryParse(topic, message)
+        } catch (e: Exception) {
+            null
         }
 
         private fun tryParse(topic: String, message: String): MqttCupCarbonMessage {
             val list = topic.split("/").toList()
             val parkingPlaceEvent = ParkingPlaceEvent.fromStr(list[1])
-            val floor = toInt(list[2])
-            val parkingPlace = toInt(list[3])
-            val carId = toInt(message)
+            val floor = list[2].toInt()
+            val parkingPlace = list[3].toInt()
+            val carId = message.toInt()
             return MqttCupCarbonMessage(parkingPlaceEvent, floor, parkingPlace, carId)
         }
 
-        private fun toInt(str: String): Int {
-            return Integer.valueOf(str)
-        }
     }
 
     enum class ParkingPlaceEvent(val str: String) {
         TAKE_PLACE("take"), LEAVE_PLACE("leave");
 
-        fun getName(): String {
-            return this.str;
-        }
-
         companion object {
-            fun fromStr(str: String): ParkingPlaceEvent {
-                return if (str == TAKE_PLACE.getName()) TAKE_PLACE else if (str == LEAVE_PLACE.getName()) LEAVE_PLACE else throw IllegalArgumentException()
+            fun fromStr(str: String): ParkingPlaceEvent = when (str) {
+                TAKE_PLACE.str -> TAKE_PLACE
+                LEAVE_PLACE.str -> LEAVE_PLACE
+                else -> throw IllegalArgumentException()
             }
         }
     }
