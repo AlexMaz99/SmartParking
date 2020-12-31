@@ -29,4 +29,5 @@ javafx {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("no.tornado:tornadofx:1.7.20")
+    implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.4")
 }
