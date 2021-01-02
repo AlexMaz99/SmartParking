@@ -33,15 +33,16 @@ data class MqttCupCarbonMessage(
 
     }
 
-    enum class ParkingPlaceEvent(val str: String) {
-        TAKE_PLACE("take"), LEAVE_PLACE("leave");
+}
 
-        companion object {
-            fun fromStr(str: String): ParkingPlaceEvent = when (str) {
-                TAKE_PLACE.str -> TAKE_PLACE
-                LEAVE_PLACE.str -> LEAVE_PLACE
-                else -> throw IllegalArgumentException()
-            }
+enum class ParkingPlaceEvent(val str: String) {
+    TAKE_PLACE("take"), LEAVE_PLACE("leave");
+
+    companion object {
+        fun fromStr(str: String): ParkingPlaceEvent = when (str) {
+            TAKE_PLACE.str -> TAKE_PLACE
+            LEAVE_PLACE.str -> LEAVE_PLACE
+            else -> throw IllegalArgumentException()
         }
     }
 }
