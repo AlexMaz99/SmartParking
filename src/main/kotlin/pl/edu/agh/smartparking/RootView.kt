@@ -1,6 +1,7 @@
 package pl.edu.agh.smartparking
 
 import javafx.scene.image.Image
+import javafx.scene.text.Font
 import pl.edu.agh.smartparking.mqtt.MQTTConnector
 import pl.edu.agh.smartparking.mqtt.MqttCupCarbonMessage.Companion.parseMqttEvent
 import pl.edu.agh.smartparking.mqtt.ParkingPlaceEvent
@@ -29,6 +30,18 @@ class RootView : View() {
                     this.x = mainViewController.palces[i].first
                     this.y = mainViewController.palces[i].second
                 }
+            }
+            label {
+                text = "Free places: "
+                this.font = Font("Arial", 16.0)
+                this.layoutX = 10.0
+                this.layoutY = 0.0
+            }
+            label {
+                textProperty().bind(mainViewController.freePlaces.asString())
+                this.font = Font("Arial", 16.0)
+                this.layoutX = 120.0
+                this.layoutY = 0.0
             }
         }
 
