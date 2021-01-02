@@ -27,8 +27,8 @@ class RootView : View() {
                 imageview {
                     visibleProperty().bind(mainViewController.visibility[i])
                     image = Image("/images/car.jpg")
-                    this.x = mainViewController.palces[i].first
-                    this.y = mainViewController.palces[i].second
+                    this.x = mainViewController.places[i].first
+                    this.y = mainViewController.places[i].second
                 }
             }
             label {

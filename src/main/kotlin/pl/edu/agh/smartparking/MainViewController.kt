@@ -14,7 +14,7 @@ class MainViewController : Controller() {
         }
     }
 
-    var palces = Configuration.PLACES
+    var places = Configuration.PLACES
 
     fun setSpecificParking(id: Int, vis: Boolean) {
         if (vis and !visibility[id].get())
