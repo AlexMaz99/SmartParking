@@ -4,7 +4,10 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.scene.image.Image
 import javafx.scene.image.PixelReader
 import pl.edu.agh.smartparking.mqtt.MQTTConnector
+import pl.edu.agh.smartparking.mqtt.MqttCupCarbonMessage
 import pl.edu.agh.smartparking.mqtt.MqttCupCarbonMessage.Companion.parseMqttEvent
+import pl.edu.agh.smartparking.mqtt.MqttCupCarbonMessage.ParkingPlaceEvent
+import pl.edu.agh.smartparking.mqtt.MqttCupCarbonMessage.ParkingPlaceEvent.*
 import tornadofx.*
 import java.io.File
 import java.io.InputStream
@@ -24,7 +27,7 @@ class RootView : View() {
         }
 
         pane {
-            for(i in 0 until Configuration.COUNT_OF_PLACES){
+            for (i in 0 until Configuration.COUNT_OF_PLACES) {
                 imageview {
                     visibleProperty().bind(mainViewController.visibility[i])
                     image = Image("file:src/main/kotlin/pl/edu/agh/smartparking/images/car.jpg")
@@ -36,19 +39,27 @@ class RootView : View() {
         }
 
 
-//        thread {
-//            val mqttConnector = MQTTConnector()
-//            mqttConnector.let {
-//                it.subscribe("cupcarbon") { topic, message ->
-//                    val cupCarbonEvent = String(message.payload)
-//                    when (val mqttEvent = parseMqttEvent(topic, cupCarbonEvent)) {
-//                        null -> println("Cannot parse event")
-//                        else -> println(mqttEvent)
-//                    }
-//                }
-//            }
-//        }
+        thread {
+            val mqttConnector = MQTTConnector()
+            mqttConnector.let {
+                it.subscribe("cupcarbon") { topic, message ->
+                    val cupCarbonEvent = String(message.payload)
+                    when (val mqttEvent = parseMqttEvent(topic, cupCarbonEvent)) {
+                        null -> println("Cannot parse event")
+                        else -> {
+                            println(mqttEvent)
+                            changePlaceState(
+                                mqttEvent.parkingPlace,
+                                mqttEvent.parkingPlaceEvent == TAKE_PLACE
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
+    private fun changePlaceState(place: Int, boolean: Boolean) =
+        mainViewController.visibility[place].set(boolean);
 
 }
