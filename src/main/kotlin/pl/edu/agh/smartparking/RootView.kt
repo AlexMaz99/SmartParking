@@ -12,6 +12,7 @@ import kotlin.concurrent.thread
 
 class RootView : View() {
     private val mainViewController: MainViewController by inject()
+    private val imageHeight = Image("/images/car.jpg").height
 
     override val root = hbox {
         vbox {
@@ -24,7 +25,6 @@ class RootView : View() {
             }
 
             pane {
-
                 label {
                     text = "Free places: "
                     this.font = Font("Arial", 16.0)
@@ -65,6 +65,24 @@ class RootView : View() {
                         image = Image("/images/car.jpg")
                         this.x = mainViewController.places[i].first
                         this.y = mainViewController.places[i].second
+                    }
+
+                    rectangle {
+                        this.x = mainViewController.places[i].first
+                        this.y = mainViewController.places[i].second
+                        this.width = 5.0
+                        this.height = imageHeight
+                        visibleProperty().bind(!mainViewController.visibility[i])
+                        this.fill = Color.GREEN
+                    }
+
+                    rectangle {
+                        this.x = mainViewController.places[i].first
+                        this.y = mainViewController.places[i].second
+                        this.width = 5.0
+                        this.height = imageHeight
+                        visibleProperty().bind(mainViewController.visibility[i])
+                        this.fill = Color.RED
                     }
                 }
             }
