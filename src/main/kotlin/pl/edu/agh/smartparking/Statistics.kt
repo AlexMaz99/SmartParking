@@ -19,7 +19,7 @@ class Statistics {
     fun saveTimeToHistory(place: Int, car: Int) {
         val time = (System.currentTimeMillis() - times[place]) / 1000
         times[place] = 0L
-        val description = history.get() + "Car: $car, Place: $place, Time: $time s\n"
+        val description = history.get() + "Place: $place, Time: $time s\n"
         history.set(description)
     }
 }
