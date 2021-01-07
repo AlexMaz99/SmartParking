@@ -1,0 +1,12 @@
+List of parameters
+------------------------------------------
+device_type:1
+device_id:8
+device_longitude:-2.2556304931640625
+device_latitude:53.47813710304312
+device_elevation:0.0
+device_radius:0.0
+device_hide:0
+device_draw_battery:false
+device_sensor_unit_radius:40.0
+device_script_file_name:aaa2.csc

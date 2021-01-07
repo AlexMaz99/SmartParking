@@ -11,5 +11,5 @@ radio_erx:2.86E-5
 radio_esleep:1.0E-7
 radio_elisten:1.0E-6
 radio_data_rate:250000
-conso_tx_model:Classical (Tx)
-conso_rx_model:Classical (Rx)
+conso_tx_model:(n/8.0)*etx*p
+conso_rx_model:(n/8.0)*erx
