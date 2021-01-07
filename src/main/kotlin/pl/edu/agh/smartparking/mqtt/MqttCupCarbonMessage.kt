@@ -26,7 +26,7 @@ data class MqttCupCarbonMessage(
             val list = topic.split("/").toList()
             val parkingPlaceEvent = ParkingPlaceEvent.fromStr(list[1])
             val floor = list[2].toInt()
-            val parkingPlace = list[3].replace("IOT","").toInt()
+            val parkingPlace = list[3].replace("S","").toInt()
             val carId = message.toInt()
             return MqttCupCarbonMessage(parkingPlaceEvent, floor, parkingPlace, carId)
         }
